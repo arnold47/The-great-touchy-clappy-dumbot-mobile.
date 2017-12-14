@@ -1,0 +1,24 @@
+from __future__ import print_function
+from __future__ import division
+import time
+import brickpi3
+BP = brickpi3.BrickPi3()
+BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.NXT_LIGHT_ON)#Makes the pi regcignize there is a light sensor on port 1.
+Kp=
+Kd=
+try:
+    while True:
+        try:
+             value=BP.get_sensor(BP.PORT_1)
+             print(value)
+             error=value-2900
+             motorspeed=Kp*error+Kd*(error-lastError)
+             lastError=error
+             right=-70-motorspeed
+             left=-70+motorspeed
+             BP.set_moter_power(BP.PORT_A,-50)
+             BP.set_moter_power(BP.PORT_B,)
+       except brickpi3.SensorError as errorp:
+    print(errorp)
+except KeyboardInterrupt:
+        BP.reset_all()
