@@ -1,0 +1,27 @@
+from __future__ import print_function
+from __future__ import division
+import time
+import brickpi3
+BP = brickpi3.BrickPi3()
+BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.NXT_ULTRASONIC)
+x=0
+try:
+    while True:
+        try:
+            value=BP.get_sensor(BP.PORT_1)
+            print(value)
+            if value=>11 and x==0:
+                BP.set_motor_power(BP.PORT_A,100)
+                BP.set_motor_power(BP.PORT_B,100)
+                x=x+1
+            elif value>11 and x==1:
+                BP.set_motor_power(BP.PORT_A,-100)
+                BP.set_motor_power(BP.PORT_B,-100)
+                x=x-1
+            else:
+                print("not triggered")
+        except brickpi3.SensorError as error:
+            print (error)
+        time.sleep(0.02)
+except KeyboardInterurupt
+    BP.reset_all()
