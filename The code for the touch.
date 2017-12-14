@@ -5,21 +5,28 @@ import brickpi3
 BP = brickpi3.BrickPi3()
 BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.NXT_ULTRASONIC)
 x=0
+z=0
 try:
-    while True:
+    while z==0:
         try:
-            value=BP.get_sensor(BP.PORT_1)
-            print(value)
-            if value=>11 and x==0:
-                BP.set_motor_power(BP.PORT_A,100)
-                BP.set_motor_power(BP.PORT_B,100)
-                x=x+1
-            elif value>11 and x==1:
-                BP.set_motor_power(BP.PORT_A,-100)
-                BP.set_motor_power(BP.PORT_B,-100)
-                x=x-1
-            else:
-                print("not triggered")
+            while z==0:
+                    value=BP.get_sensor(BP.PORT_1)
+                    print(value)
+                    if value=>1000 and x==0:
+                        BP.set_motor_power(BP.PORT_A,100)
+                        BP.set_motor_power(BP.PORT_B,100)
+                        x=1
+                        time.sleep(2)
+                    elif value>1000 and x==1:
+                            BP.set_motor_power(BP.PORT_A,-100)
+                            BP.set_motor_power(BP.PORT_B,-100)
+                            x=0
+                            time.sleep(2)
+                    elif valuex==1:
+                            BP.set_motor_power(BP.PORT_A,0)
+                            BP.set_motor_power(BP.PORT_B,0)
+                    else:
+                            print("not triggered")
         except brickpi3.SensorError as error:
             print (error)
         time.sleep(0.02)
