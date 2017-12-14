@@ -4,8 +4,9 @@ import time
 import brickpi3
 BP = brickpi3.BrickPi3()
 BP.set_sensor_type(BP.PORT_1, BP.SENSOR_TYPE.NXT_LIGHT_ON)#Makes the pi regcignize there is a light sensor on port 1.
-Kp=
-Kd=
+Kp=.1
+Kd=2
+lasterror=0
 try:
     while True:
         try:
@@ -16,8 +17,8 @@ try:
              lastError=error
              right=-70-motorspeed
              left=-70+motorspeed
-             BP.set_moter_power(BP.PORT_A,-50)
-             BP.set_moter_power(BP.PORT_B,)
+             BP.set_moter_power(BP.PORT_A,left)
+             BP.set_moter_power(BP.PORT_B,right))
        except brickpi3.SensorError as errorp:
     print(errorp)
 except KeyboardInterrupt:
